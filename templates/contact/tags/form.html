@@ -1,0 +1,13 @@
+<div class="subscribe-widget">
+    <div class="widget-title">
+        <h5>subscribe</h5>
+    </div>
+    <div class="subscribe-form">
+        <form action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            {{contact_form}}
+            <input type="email" name="email" id="subs_email" placeholder="Your Email">
+            <button type="submit">subscribe</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<section class="welcome-blog-post-slide owl-carousel">
+    {% for news in last_news %}
+    <div class="single-blog-post-slide bg-img background-overlay-5" style="background-image: url({{news.image.url}});">
+        <!-- Single Blog Post Content -->
+        <div class="single-blog-post-content">
+            <div class="tags">
+                <a href="#">{{news.category}}</a>
+            </div>
+            <h3><a href="#" class="font-pt">{{news.title}}</a></h3>
+            <div class="date">
+                <a href="#">{{ news.create_at|date:"d-m-Y H:i:s"}}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+<div class="latest-news-marquee-area">
+    <div class="simple-marquee-container">
+        <div class="marquee">
+            <ul class="marquee-content-items">
+                {% for new in news %}
+                <li>
+                    <a href="#"><span class="latest-news-time">{{new.create_at|time:"H:i"}}</span> {{new.title}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

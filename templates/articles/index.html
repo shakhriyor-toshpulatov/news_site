@@ -1,0 +1,347 @@
+{%extends 'base.html' %}
+{% block content %}
+{% load article_tag %}
+{% include 'templatetags/last_news.html' %}
+{% get_last_news %}
+<section class="main-content-wrapper section_padding_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                {%for post in post_list %}
+                {% if forloop.first %}
+                <!-- Gazette Welcome Post -->
+                <div class="gazette-welcome-post">
+                    <!-- Post Tag -->
+                    <div class="gazette-post-tag">
+                        <a href="#">{{post.category}}</a>
+                    </div>
+                    <h2 class="font-pt">{{post.title}}</h2>
+                    <p class="gazette-post-date">
+                    <p>{{ post.create_at|date:"d-m-Y H:i:s"}}</p>
+                    <!-- Post Thumbnail -->
+                    <div class="blog-post-thumbnail my-5">
+                        <img src="{{post.image.url}}" alt="post-thumb">
+                    </div>
+                    <!-- Post Excerpt -->
+                    <p>{{ post.article|slice:":250" |safe }}</p>
+                    <!-- Reading More -->
+                    <div class="post-continue-reading-share d-sm-flex align-items-center justify-content-between mt-30">
+                        <div class="post-continue-btn">
+                            <a href="{{post.get_absolute_url}}" class="font-pt">Continue Reading <i
+                                    class="fa fa-chevron-right"
+                                    aria-hidden="true"></i></a>
+                        </div>
+                        <div class="post-share-btn-group">
+                            <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="gazette-todays-post section_padding_100_50">
+                    <div class="gazette-heading">
+                        <h4>today’s most popular</h4>
+                    </div>
+                    {%for post in post_list %}
+                    {% if forloop.counter <= 3 and forloop.counter > 1 %}
+                    <div class="gazette-single-todays-post d-md-flex align-items-start mb-50">
+                        <div class="todays-post-thumb">
+                            <img src="{{post.image.url}}" alt="">
+                        </div>
+                        <div class="todays-post-content">
+                            <!-- Post Tag -->
+                            <div class="gazette-post-tag">
+                                <a href="#">{{post.category}}</a>
+                            </div>
+                            <h3><a href="{{post.get_absolute_url }}" class="font-pt mb-2">{{post.title}}</a></h3>
+                            <span class="gazette-post-date mb-2">{{ post.create_at|date:"d-m-Y H:i:s"}}</span>
+                            <a href="{{post.get_absolute_url %}" class="post-total-comments">
+                                {{post.review_set.count}} Comments
+                            </a>
+                            <p>{{ post.article|slice:":250"}}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% include 'include/sidebar.html' %}
+        </div>
+    </div>
+    <!--    &lt;!&ndash; Main Content Area End &ndash;&gt;-->
+
+    <!--    &lt;!&ndash; Catagory Posts Area Start &ndash;&gt;-->
+    <!--    <div class="gazette-catagory-posts-area">-->
+    <!--        <div class="container">-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-12 col-md-4">-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <div class="single-catagory-post-thumb mb-15">-->
+    <!--                            <img src="img/blog-img/12.jpg" alt="">-->
+    <!--                        </div>-->
+    <!--                        &lt;!&ndash; Post Tag &ndash;&gt;-->
+    <!--                        <div class="gazette-post-tag">-->
+    <!--                            <a href="#">Video</a>-->
+    <!--                        </div>-->
+    <!--                        <h5><a href="#" class="font-pt">Save the eniroment with this step</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <h5><a href="#" class="font-pt">Protest to be anounced in January</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <h5><a href="#" class="font-pt">10 Bills that the Congress in voting</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <h5><a href="#" class="font-pt">The narcissism of Donald Trump</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-12 col-md-4">-->
+    <!--                    <div class="row">-->
+    <!--                        <div class="col-12 col-md-6">-->
+    <!--                            &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                            <div class="gazette-single-catagory-post">-->
+    <!--                                <div class="single-catagory-post-thumb mb-15">-->
+    <!--                                    <img src="img/blog-img/14.jpg" alt="">-->
+    <!--                                </div>-->
+    <!--                                &lt;!&ndash; Post Tag &ndash;&gt;-->
+    <!--                                <div class="gazette-post-tag">-->
+    <!--                                    <a href="#">Others</a>-->
+    <!--                                </div>-->
+    <!--                                <h5><a href="#" class="font-pt">11 hottest toys for this holiday season</a></h5>-->
+    <!--                                <span>Nov 29, 2017</span>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="col-12 col-md-6">-->
+    <!--                            &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                            <div class="gazette-single-catagory-post">-->
+    <!--                                <div class="single-catagory-post-thumb mb-15">-->
+    <!--                                    <img src="img/blog-img/15.jpg" alt="">-->
+    <!--                                </div>-->
+    <!--                                &lt;!&ndash; Post Tag &ndash;&gt;-->
+    <!--                                <div class="gazette-post-tag">-->
+    <!--                                    <a href="#">Video</a>-->
+    <!--                                </div>-->
+    <!--                                <h5><a href="#" class="font-pt">Get this good feeling about life</a></h5>-->
+    <!--                                <span>Nov 29, 2017</span>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="col-12 col-md-6">-->
+    <!--                            &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                            <div class="gazette-single-catagory-post">-->
+    <!--                                <div class="single-catagory-post-thumb mb-15">-->
+    <!--                                    <img src="img/blog-img/16.jpg" alt="">-->
+    <!--                                </div>-->
+    <!--                                &lt;!&ndash; Post Tag &ndash;&gt;-->
+    <!--                                <div class="gazette-post-tag">-->
+    <!--                                    <a href="#">Interview</a>-->
+    <!--                                </div>-->
+    <!--                                <h5><a href="#" class="font-pt">Get this good feeling about life</a></h5>-->
+    <!--                                <span>Nov 29, 2017</span>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="col-12 col-md-6">-->
+    <!--                            &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                            <div class="gazette-single-catagory-post">-->
+    <!--                                <div class="single-catagory-post-thumb mb-15">-->
+    <!--                                    <img src="img/blog-img/17.jpg" alt="">-->
+    <!--                                </div>-->
+    <!--                                &lt;!&ndash; Post Tag &ndash;&gt;-->
+    <!--                                <div class="gazette-post-tag">-->
+    <!--                                    <a href="#">Video</a>-->
+    <!--                                </div>-->
+    <!--                                <h5><a href="#" class="font-pt">11 hottest toys for this holiday season</a></h5>-->
+    <!--                                <span>Nov 29, 2017</span>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-12 col-md-4">-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <div class="single-catagory-post-thumb mb-15">-->
+    <!--                            <img src="img/blog-img/13.jpg" alt="">-->
+    <!--                        </div>-->
+    <!--                        &lt;!&ndash; Post Tag &ndash;&gt;-->
+    <!--                        <div class="gazette-post-tag">-->
+    <!--                            <a href="#">Video</a>-->
+    <!--                        </div>-->
+    <!--                        <h5><a href="#" class="font-pt">10 Bills that the Congress in voting</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <h5><a href="#" class="font-pt">Blair can't save Britain from Brexit</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <h5><a href="#" class="font-pt">Save the eniroment with this step</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                    &lt;!&ndash; Single Catagory Post &ndash;&gt;-->
+    <!--                    <div class="gazette-single-catagory-post">-->
+    <!--                        <h5><a href="#" class="font-pt">Protest to be anounced in January</a></h5>-->
+    <!--                        <span>Nov 29, 2017</span>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+</section>
+<!-- Catagory Posts Area End -->
+
+<!-- Video Posts Area Start -->
+<section class="gazatte-video-post-area section_padding_100_70 bg-gray">
+    <div class="container">
+        <div class="row">
+            {%for post in post_list %}
+            {% if forloop.counter <= 4 %}
+            <div class="col-12 col-md-3">
+                <div class="single-video-post">
+                    <div class="video-post-thumb">
+                        <img src="{{post.image.url}}" alt="">
+                        <!--                        <a href="https://youtu.be/dIyXl9ZHEgg" class="videobtn"><i class="fa fa-play"-->
+                        <!--                                                                                   aria-hidden="true"></i></a>-->
+                    </div>
+                    <h5><a href="#">{{post.title}}</a></h5>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Video Posts Area End -->
+
+<!--&lt;!&ndash; Editorial Area Start &ndash;&gt;-->
+<!--<section class="gazatte-editorial-area section_padding_100 bg-dark">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <div class="editorial-post-slides owl-carousel">-->
+
+<!--                    &lt;!&ndash; Editorial Post Single Slide &ndash;&gt;-->
+<!--                    <div class="editorial-post-single-slide">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12 col-md-5">-->
+<!--                                <div class="editorial-post-thumb">-->
+<!--                                    <img src="img/blog-img/bitcoin.jpg" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 col-md-7">-->
+<!--                                <div class="editorial-post-content">-->
+<!--                                    &lt;!&ndash; Post Tag &ndash;&gt;-->
+<!--                                    <div class="gazette-post-tag">-->
+<!--                                        <a href="#">Editorial</a>-->
+<!--                                    </div>-->
+<!--                                    <h2><a href="#" class="font-pt mb-15">Move over, bitcoin. <br>Here comes-->
+<!--                                        litecoin</a></h2>-->
+<!--                                    <p class="editorial-post-date mb-15">March 29, 2016</p>-->
+<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultrices-->
+<!--                                        egestas nunc, quis venenatis orci tincidunt id. Fusce commodo blandit eleifend.-->
+<!--                                        Nullam viverra tincidunt dolor, at pulvinar dui. Nullam at risus ut ipsum-->
+<!--                                        viverra posuere. Aliquam quis convallis enim. Nunc pulvinar molestie sem id-->
+<!--                                        blandit. Nunc venenatis interdum mollis...</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Editorial Post Single Slide &ndash;&gt;-->
+<!--                    <div class="editorial-post-single-slide">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12 col-md-5">-->
+<!--                                <div class="editorial-post-thumb">-->
+<!--                                    <img src="img/blog-img/bitcoin.jpg" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 col-md-7">-->
+<!--                                <div class="editorial-post-content">-->
+<!--                                    &lt;!&ndash; Post Tag &ndash;&gt;-->
+<!--                                    <div class="gazette-post-tag">-->
+<!--                                        <a href="#">Editorial</a>-->
+<!--                                    </div>-->
+<!--                                    <h2><a href="#" class="font-pt mb-15">Move over, bitcoin. <br>Here comes-->
+<!--                                        litecoin</a></h2>-->
+<!--                                    <p class="editorial-post-date mb-15">March 29, 2016</p>-->
+<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultrices-->
+<!--                                        egestas nunc, quis venenatis orci tincidunt id. Fusce commodo blandit eleifend.-->
+<!--                                        Nullam viverra tincidunt dolor, at pulvinar dui. Nullam at risus ut ipsum-->
+<!--                                        viverra posuere. Aliquam quis convallis enim. Nunc pulvinar molestie sem id-->
+<!--                                        blandit. Nunc venenatis interdum mollis...</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Editorial Post Single Slide &ndash;&gt;-->
+<!--                    <div class="editorial-post-single-slide">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12 col-md-5">-->
+<!--                                <div class="editorial-post-thumb">-->
+<!--                                    <img src="img/blog-img/bitcoin.jpg" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 col-md-7">-->
+<!--                                <div class="editorial-post-content">-->
+<!--                                    &lt;!&ndash; Post Tag &ndash;&gt;-->
+<!--                                    <div class="gazette-post-tag">-->
+<!--                                        <a href="#">Editorial</a>-->
+<!--                                    </div>-->
+<!--                                    <h2><a href="#" class="font-pt mb-15">Move over, bitcoin. <br>Here comes-->
+<!--                                        litecoin</a></h2>-->
+<!--                                    <p class="editorial-post-date mb-15">March 29, 2016</p>-->
+<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultrices-->
+<!--                                        egestas nunc, quis venenatis orci tincidunt id. Fusce commodo blandit eleifend.-->
+<!--                                        Nullam viverra tincidunt dolor, at pulvinar dui. Nullam at risus ut ipsum-->
+<!--                                        viverra posuere. Aliquam quis convallis enim. Nunc pulvinar molestie sem id-->
+<!--                                        blandit. Nunc venenatis interdum mollis...</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Editorial Post Single Slide &ndash;&gt;-->
+<!--                    <div class="editorial-post-single-slide">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12 col-md-5">-->
+<!--                                <div class="editorial-post-thumb">-->
+<!--                                    <img src="img/blog-img/bitcoin.jpg" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 col-md-7">-->
+<!--                                <div class="editorial-post-content">-->
+<!--                                    &lt;!&ndash; Post Tag &ndash;&gt;-->
+<!--                                    <div class="gazette-post-tag">-->
+<!--                                        <a href="#">Editorial</a>-->
+<!--                                    </div>-->
+<!--                                    <h2><a href="#" class="font-pt mb-15">Move over, bitcoin. <br>Here comes-->
+<!--                                        litecoin</a></h2>-->
+<!--                                    <p class="editorial-post-date mb-15">March 29, 2016</p>-->
+<!--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultrices-->
+<!--                                        egestas nunc, quis venenatis orci tincidunt id. Fusce commodo blandit eleifend.-->
+<!--                                        Nullam viverra tincidunt dolor, at pulvinar dui. Nullam at risus ut ipsum-->
+<!--                                        viverra posuere. Aliquam quis convallis enim. Nunc pulvinar molestie sem id-->
+<!--                                        blandit. Nunc venenatis interdum mollis...</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--&lt;!&ndash; Editorial Area End &ndash;&gt;-->
+{% endblock content %}

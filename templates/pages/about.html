@@ -1,0 +1,27 @@
+{%extends 'base.html' %}
+{% block content %}
+<!-- Breadcumb Area Start -->
+<div class="breadcumb-area section_padding_50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breacumb-content d-flex align-items-center justify-content-between">
+                    <h3 class="font-pt mb-0">About Us</h3>
+                    <p class="editorial-post-date text-dark mb-0">28 November 2017</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcumb Area End -->
+
+<section class="gazette-about-us-area section_padding_100_70">
+    <div class="about-us-content">
+        <div class="container">
+            <div class="row">
+                {{flatpage.content}}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

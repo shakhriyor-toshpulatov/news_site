@@ -1,0 +1,33 @@
+{% load contact_tags %}
+<div class="col-12 col-lg-3 col-md-6">
+    <div class="sidebar-area">
+        <!-- Breaking News Widget -->
+        <div class="breaking-news-widget">
+            <div class="widget-title">
+                <h5><a href="{% url 'posts' %}">breaking news</a></h5>
+            </div>
+            {% for post in post_list %}
+            <!--                                                {% if forloop.counter <= 3 and forloop.counter > 1 %}-->
+            <div class="single-breaking-news-widget">
+                <img src="{{post.image.url}}" alt="">
+                <div class="breakingnews-title">
+                    <p>breaking news</p>
+                </div>
+                <div class="breaking-news-heading gradient-background-overlay">
+                    <h5 class="font-pt">{{post.title}}</h5>
+                </div>
+            </div>
+            <!--                        {% endif %}-->
+            {% endfor %}
+        </div>
+        <div class="advert-widget">
+            <div class="widget-title">
+                <h5>Advert</h5>
+            </div>
+            <div class="advert-thumb mb-30">
+                <a href="#"><img src="img/bg-img/add.png" alt=""></a>
+            </div>
+        </div>
+        {% contact_form %}
+    </div>
+</div>
